@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barcelona Rental Market Analysis | Sjoerd Verhagen</title>
+  <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+  <style>
+    /* ✅ BASIC PAGE STYLING */
+    body { font-family: 'Inter', Arial, sans-serif; background: #f7f9fc; color: #222; margin: 0; padding: 20px; line-height: 1.6; max-width: 800px; margin: auto;}
+    h1 { color: #2d6cdf; }
+    h2 { margin-top: 1.2em; }
+    pre code { display: block; background: #1e1e1e; color: #f8f8f2; padding: 12px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 0.95em; overflow-x: auto; }
+    img { max-width: 100%; border-radius: 8px; margin: 15px 0; }
+    a { color: #2d6cdf; }
+
+    /* ✅ SYNTAX COLORS FOR SQL & PYTHON */
+    .sql-keyword { color: #569cd6; font-weight: bold; }
+    .sql-func { color: #4ec9b0; }
+    .sql-string { color: #d69d85; }
+    .py-keyword { color: #569cd6; font-weight: bold; }
+    .py-func { color: #dcdcaa; }
+    .py-var { color: #9cdcfe; }
+    .py-string { color: #ce9178; }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ PAGE CONTENT STARTS HERE -->
+  <h2>Introduction</h2>
+<p>My girlfriend and I will move to Barcelona in September 2025. To put my new skills in <strong>Python</strong>, <strong>SQL</strong>, and <strong>Tableau</strong> into practice, I chose a project that’s both personally relevant and a good showcase of what I’ve learned.</p>
+
+<p>To prepare for our move, I analyzed the rental market using data from <strong>Idealista</strong>, the city’s most popular housing platform. With a student budget in mind, I focused on furnished flats under €2,000 a month to see what’s realistic and where to begin our search. The goal was to narrow down neighbourhood options, get a feel for the city, and find out which areas best suit our needs.</p>
+
+<h3>Questions I aimed to answer:</h3>
+<ul>
+  <li>Which districts offer the best value for money (€/m²)?</li>
+  <li>Which districts have the largest rental supply?</li>
+  <li>What are the average sizes and rents by district?</li>
+</ul>
+
+<h3>Deeper insights I explored:</h3>
+<ul>
+  <li><strong>Two-bedroom vs. one-bedroom:</strong> How much more do two-bedroom flats cost? We'd like space for friends to stay over.</li>
+  <li><strong>Quiet vs. central:</strong> Which districts just outside the centre (like Gràcia, Poble-Sec, Poblenou, Sants, and Sant Antoni) offer a good balance of price and space?</li>
+</ul>
+
+<h3>Tools I used:</h3>
+<ul>
+  <li><strong>Open Web Scraper</strong> – for collecting rental data</li>
+  <li><strong>Python</strong> – for cleaning and preparing the data</li>
+  <li><strong>Open Geo Code</strong> – for mapping coordinates</li>
+  <li><strong>SQL</strong> – for queries and aggregations</li>
+  <li><strong>Tableau</strong> – for creating clear visual insights</li>
+</ul>
+
+  <!-- ✅ SQL CODE BLOCK -->
+  <h2>Step 2: Cleaning (SQL)</h2>
+  <pre><code>
+<span class="sql-keyword">SELECT</span> district,
+       price,
+       size_m2,
+       price / size_m2 <span class="sql-keyword">AS</span> price_per_m2
+<span class="sql-keyword">FROM</span> rentals
+<span class="sql-keyword">WHERE</span> price &lt; 2000;
+  </code></pre>
+
+  <!-- ✅ PYTHON CODE BLOCK -->
+  <h2>Step 3: EDA (Python)</h2>
+  <pre><code>
+<span class="py-keyword">import</span> pandas <span class="py-keyword">as</span> pd
+df = pd.read_csv(<span class="py-string">'rentals.csv'</span>)
+df.groupby(<span class="py-string">'district'</span>)['price_per_m2'].mean().sort_values()
+  </code></pre>
+
+  <!-- ✅ TABLEAU (Option A: Embed interactive) -->
+  <h2>Step 4: Tableau Dashboard</h2>
+  <div style="position: relative; width: 100%; height: 800px;">
+    <iframe 
+      src="https://public.tableau.com/views/YOUR-DASHBOARD?:showVizHome=no&:embed=true"
+      width="100%" 
+      height="800" 
+      frameborder="0">
+    </iframe>
+  </div>
+
+  <!-- ✅ OR (Option B: Screenshot + button) -->
+  <!--
+  <img src="assets/rental_dashboard.png" alt="Rental Dashboard">
+  <p>
+    <a href="https://public.tableau.com/views/YOUR-DASHBOARD" target="_blank"
+       style="display:inline-block;background:#2d6cdf;color:#fff;padding:10px 16px;border-radius:6px;text-decoration:none;">
+       🔗 View Live Dashboard
+    </a>
+  </p>
+  -->
+
+  <p><a href="index.html">⬅ Back to Portfolio</a></p>
+</body>
+</html>
